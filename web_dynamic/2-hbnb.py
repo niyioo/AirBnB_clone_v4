@@ -5,7 +5,8 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.place import Place
-from flask import Flask, render_template
+from os import environ
+from flask import Flask, render_template, jsonify
 import uuid
 
 
@@ -18,7 +19,7 @@ def close_db(error):
     storage.close()
 
 
-@app.route('/1-hbnb', strict_slashes=False)
+@app.route('/2-hbnb', strict_slashes=False)
 def hbnb():
     states = storage.all(State).values()
     states = sorted(states, key=lambda k: k.name)
@@ -35,7 +36,7 @@ def hbnb():
 
     cache_id = str(uuid.uuid4())
 
-    return render_template('1-hbnb.html',
+    return render_template('2-hbnb.html',
                            states=st_ct,
                            amenities=amenities,
                            places=places,
@@ -43,4 +44,5 @@ def hbnb():
 
 
 if __name__ == "__main":
+    """ Main Function """
     app.run(host='0.0.0.0', port=5000)
